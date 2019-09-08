@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
+
 
 urlpatterns = [
+    # path(name of the route, include(python module in quotes))
     path('todolist/', include('toDoListBackEnd.todolist.urls') ),
-    path('admin/', admin.site.urls)
-    
+    path('admin/', admin.site.urls),    
 ]
