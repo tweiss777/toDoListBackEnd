@@ -1,5 +1,5 @@
 from django.db import models
-import datetime as dt
+from datetime import datetime as dt
 
 # Create your models here.
 class User(models.Model):
@@ -15,9 +15,10 @@ class User(models.Model):
 class ToDoList(models.Model):
     list_id = models.AutoField(primary_key=True)
     list_name = models.CharField(max_length=50)
-    user_id = models.ForeignKey('User',on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
 
+# make list_id the primary key
 class ToDoItem(models.Model):
     item_name = models.CharField(max_length=50)
-    list_id = models.ForeignKey('ToDoList',on_delete=models.CASCADE)
+    list_id = models.ForeignKey(ToDoList,related_name="list_items",on_delete=models.CASCADE)
     date_created = models.DateTimeField(default=dt.now)
