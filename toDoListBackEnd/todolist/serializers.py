@@ -4,7 +4,7 @@ from toDoListBackEnd.todolist.models import  User, ToDoList, ToDoItem
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['user_id','first_name','last_name','email','password','date_created']
+        fields = ['user_id','first_name','last_name','email','date_created']
 
 
 
