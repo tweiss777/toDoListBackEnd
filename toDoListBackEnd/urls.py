@@ -20,6 +20,6 @@ from django.conf.urls import url
 
 urlpatterns = [
     # path(name of the route, include(python module in quotes))
-    path('todolist/', include('toDoListBackEnd.todolist.urls') ),
+    path('todolist', include('toDoListBackEnd.todolist.urls') ),
     path('admin/', admin.site.urls),    
 ]
