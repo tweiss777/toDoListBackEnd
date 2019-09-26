@@ -25,22 +25,49 @@ def retrieveToDoItems(request):
 # create a todo list for the specified user
 @csrf_exempt
 def create_list(request):
-    pass
+    if request.method == 'GET':
+        return HttpResponse("Request invalid")
 
+    elif request.method == 'POST':
+        list_name = request.POST['list_name']
+        user_id = request.POST['user_id']
 
+#create list item for the specified user's list
 @csrf_exempt
 def create_list_item(request):
-    pass
+    if request.method == 'GET':
+        return HttpResponse("Request invalid")
+    elif request.method == 'POST':
+        pass
 
-
+# edit the name of the list item
 @csrf_exempt
 def update_list_item(request):
-    pass
+    if request.method == 'GET':
+        return HttpResponse("Request invalid")
+    elif request.method == 'POST':
+        pass
 
+# edit the name of the list itself
 @csrf_exempt
 def update_list_name(request):
-    pass
+    if request.method == 'GET':
+        return HttpResponse("Request invalid")
+    elif request.method == 'POST':
+        pass
 
+#delete list itself
 @csrf_exempt
 def delete_list(request):
-    pass
+    if request.method == 'GET':
+        return HttpResponse("Request invalid")
+    elif request.method == 'POST':
+        pass
+
+# delete list item
+@csrf_exempt
+def delete_list_item(request):
+    if request.method == 'GET':
+        return HttpResponse("Request invalid")
+    elif request.method == 'POST':
+        pass

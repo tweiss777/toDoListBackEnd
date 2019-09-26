@@ -13,6 +13,7 @@ class User(models.Model):
 
 
 class ToDoList(models.Model):
+    # list id will be created automatically
     list_id = models.AutoField(primary_key=True)
     list_name = models.CharField(max_length=50)
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
