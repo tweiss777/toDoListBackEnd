@@ -10,5 +10,6 @@ urlpatterns = [
     path('update_list_item',views.update_list_item),
     path('update_list_name',views.update_list_name),
     path('delete_list',views.delete_list),
-    path('delete_list_item',views.delete_list_item)
+    path('delete_list_item',views.delete_list_item),
+    path('retrievelists',views.retrieveToDoLists)
 ]
