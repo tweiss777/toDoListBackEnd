@@ -11,11 +11,22 @@ def index(request):
     return HttpResponse("homepage of the api")
 # Create your views here.
 
+""" Each view function checks if the request to the endpoint is a GET
+    or a POST request.. 
+
+        if the request to an endpoint is GET, then the view will return 
+        an HTTPResponse with an invalid request message.
+
+        if its a post request then the view will perform some action
+    
+"""
+
 @csrf_exempt
 def retrieveToDoLists(request):
     if request.method == 'GET':
         return HttpResponse("Request invalid")
     elif request.method == 'POST':
+        # user_id: user id associated
         userID = request.POST.get('user_id')
         try:
             todolists = ToDoList.objects.filter(user_id=userID)
@@ -32,6 +43,13 @@ def retrieveToDoItems(request):
     if request.method == 'GET':
         return HttpResponse("Request invalid")
     elif request.method == 'POST':
+        """Params being passed
+            1) user_id = the user id that corresponds to the user
+            2) list_name - which is the list name that belongs to the user
+            3) In a future commit - the list id maybe required in the request to the endpoint
+        
+         """
+
         userId = request.POST.get("user_id")
         listName = request.POST.get("list_name")
         todolist = ToDoList.objects.get(list_name=listName,user_id=userId)
@@ -41,6 +59,11 @@ def retrieveToDoItems(request):
 # create a todo list for the specified user
 @csrf_exempt
 def create_list(request):
+    """
+        params being passed to the post request:
+            1) list_name: the name of the to do list
+            2) user_id: the user id associated.
+    """
     if request.method == 'GET':
         return HttpResponse("Request invalid")
 
@@ -57,11 +80,24 @@ def create_list(request):
 #create list item for the specified user's list
 @csrf_exempt
 def create_list_item(request):
+    """
+        params being passed to post request:
+            1) list_id: the list id associated with the item
+            2) item_name: the name of the item associated with the to do list
+
+    """
     if request.method == 'GET':
         return HttpResponse("Request invalid")
     elif request.method == 'POST':
-        pass
-
+        listId = request.POST.get('list_id')
+        new_item = request.POST.get('item_name')
+        current_list = ToDoList.objects.get(list_id=listId)
+        new_item = ToDoItem(list_name=new_item,list_id=current_list)
+        try:
+            new_item.save()
+        except:
+            return HttpResponse("Something went wrong while creating list item")
+        return HttpResponse("Added list item")
 # edit the name of the list item
 @csrf_exempt
 def update_list_item(request):
@@ -69,8 +105,9 @@ def update_list_item(request):
         return HttpResponse("Request invalid")
     elif request.method == 'POST':
         # get post params such as list_id and list_item
-        # list id
-        # current item name
+        # list_id: list id
+        # list_item: current item name
+        # list_id: the list id associated
         current_list_item = request.POST.get('list_item')
         # item name to update with
         updated_list_item = request.POST.get('updated_list_item')
