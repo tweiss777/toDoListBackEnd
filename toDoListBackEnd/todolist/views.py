@@ -172,3 +172,15 @@ def delete_list_item(request):
         except:
             return HttpResponse("Something went wrong while deleting entry")
         return HttpResponse("Item succesfully deleted")
+
+# Create Account
+@csrf_exempt
+@staticmethod
+def funcname(request):
+    pass
+
+# Login
+@csrf_exempt
+@staticmethod
+def funcname(request):
+    pass 
