@@ -5,7 +5,7 @@ from toDoListBackEnd.todolist.serializers import *
 from django.views.decorators.csrf import csrf_exempt
 import json 
 from datetime import datetime as dt
-
+import re as regex
 # test route
 def index(request):
     return HttpResponse("homepage of the api")
@@ -175,12 +175,37 @@ def delete_list_item(request):
 
 # Create Account
 @csrf_exempt
-@staticmethod
-def funcname(request):
-    pass
+def create_account(request):
+   # regex for email
+    regex_patten = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+
+    regex_email = regex.compile(regex_patten)
+
+
+    """
+        url params:
+            1) firts_name: the users first name
+            2) last_name: the users last name
+            3) email: the users email address
+            4) password: the password
+    """
+    # first name
+    first = request.POST.get('first_name')
+    # last name
+    last = request.POST.get('last_name')
+    # email address
+    email_address = request.POST.get('email')
+    # password
+    pswrd = request.POST.get('password')
+    
+    acceptable_email = bool(regex.match(regex_email, email_address))
+
+    
+
+    
+
 
 # Login
 @csrf_exempt
-@staticmethod
-def funcname(request):
+def login(request):
     pass 
