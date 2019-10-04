@@ -12,6 +12,6 @@ urlpatterns = [
     path('delete_list',views.delete_list),
     path('delete_list_item',views.delete_list_item),
     path('retrievelists',views.retrieveToDoLists),
-    path('login',views.create_account),
-    path('create_account',views.login)
+    path('login',views.login),
+    path('create_account',views.create_account)
 ]

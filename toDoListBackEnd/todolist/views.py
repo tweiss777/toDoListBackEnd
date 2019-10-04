@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json 
 from datetime import datetime as dt
 import re as regex
+from toDoListBackEnd.todolist.forms import *
 # test route
 def index(request):
     return HttpResponse("homepage of the api")
@@ -179,8 +180,8 @@ def create_account(request):
    # regex for email
     regex_patten = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
 
-    regex_email = regex.compile(regex_patten)
-
+    # regex_email = regex.compile(regex_patten)
+    # using a form instead
 
     """
         url params:
@@ -189,20 +190,28 @@ def create_account(request):
             3) email: the users email address
             4) password: the password
     """
-    # first name
-    first = request.POST.get('first_name')
-    # last name
-    last = request.POST.get('last_name')
-    # email address
-    email_address = request.POST.get('email')
-    # password
-    pswrd = request.POST.get('password')
-    
-    acceptable_email = bool(regex.match(regex_email, email_address))
 
-    
+    new_account_form = NewUserForm(request.POST)
 
-    
+    if new_account_form.is_valid():
+
+        # store fields in separate variables
+        firstName_field = new_account_form.cleaned_data["first_name"]
+        lastName_field = new_account_form.cleaned_data["last_name"]
+        email_field = new_account_form.cleaned_data["email"]
+        password_field = new_account_form.cleaned_data["password"]
+
+        new_account_model = User(first_name=firstName_field,last_name=lastName_field,email=email_field,password=password_field)
+        new_account_model.save()
+        return HttpResponse("Model created succesffuly \n check the database just in case")
+
+
+    else:
+        return HttpResponse("Error: one or more fields are invalid")
+
+    #if form is valid
+    #store entry from form in the database
+    #otherwise RETURN errors
 
 
 # Login
