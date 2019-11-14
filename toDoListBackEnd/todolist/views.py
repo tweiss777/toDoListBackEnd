@@ -177,6 +177,7 @@ def delete_list_item(request):
 # Create Account
 @csrf_exempt
 def create_account(request):
+    print("recieved something")
    # regex for email
     regex_patten = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
 
@@ -217,4 +218,9 @@ def create_account(request):
 # Login
 @csrf_exempt
 def login(request):
-    pass 
+    pass
+
+@csrf_exempt
+def logout(request):
+    pass
+    
