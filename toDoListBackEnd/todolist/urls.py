@@ -1,9 +1,8 @@
 from django.urls import path
-
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from . import views
 
 urlpatterns = [
-    path('index', views.index, name='index'),
     path('retrievelist',views.retrieveToDoItems),
     path('create_list',views.create_list),
     path('create_list_item',views.create_list_item),
@@ -13,5 +12,7 @@ urlpatterns = [
     path('delete_list_item',views.delete_list_item),
     path('retrievelists',views.retrieveToDoLists),
     path('login',views.login),
-    path('create_account',views.create_account)
+    path('create_account',views.create_account),
+    path('api-token-authentication',obtain_jwt_token),
+    path('api-token-refresh',refresh_jwt_token)
 ]
