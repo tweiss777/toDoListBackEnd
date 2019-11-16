@@ -146,6 +146,7 @@ def delete_list_item(request):
         return Response({"message":"Item succesfully deleted"})
 
 # Create Account
+@api_view(['POST'])
 @csrf_exempt
 def create_account(request):
     print("recieved something")
@@ -162,35 +163,38 @@ def create_account(request):
             3) email: the users email address
             4) password: the password
     """
+    if request.method == 'POST':
 
-    new_account_form = NewUserForm(request.data)
+        new_account_form = NewUserForm(request.data)
 
-    if new_account_form.is_valid():
+        if new_account_form.is_valid():
 
-        # store fields in separate variables
-        firstName_field = new_account_form.cleaned_data["first_name"]
-        lastName_field = new_account_form.cleaned_data["last_name"]
-        email_field = new_account_form.cleaned_data["email"]
-        password_field = new_account_form.cleaned_data["password"]
+            # store fields in separate variables
+            firstName_field = new_account_form.cleaned_data["first_name"]
+            lastName_field = new_account_form.cleaned_data["last_name"]
+            email_field = new_account_form.cleaned_data["email"]
+            password_field = new_account_form.cleaned_data["password"]
 
-        new_account_model = User(first_name=firstName_field,last_name=lastName_field,email=email_field,password=password_field)
-        new_account_model.save()
-        return Response({"message":"Account created succesffuly \n check the database just in case"})
+            new_account_model = User(first_name=firstName_field,last_name=lastName_field,email=email_field,password=password_field)
+            new_account_model.save()
+            return Response({"message":"Account created succesffuly \n check the database just in case"})
 
 
-    else:
-        return Response({"error":"Error: one or more fields are invalid"})
+        else:
+            return Response({"error":"Error: one or more fields are invalid"})
 
-    #if form is valid
-    #store entry from form in the database
-    #otherwise RETURN errors
+        #if form is valid
+        #store entry from form in the database
+        #otherwise RETURN errors
 
 
 # Login
 @csrf_exempt
+@api_view(['POST'])
 def login(request):
     pass
 
+#logout
 @csrf_exempt
 def logout(request):
     pass
