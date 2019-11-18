@@ -11,8 +11,6 @@ urlpatterns = [
     path('delete_list',views.delete_list),
     path('delete_list_item',views.delete_list_item),
     path('retrievelists',views.retrieveToDoLists),
-    path('login',views.login),
+    path('login',views.login_user),
     path('create_account',views.create_account),
-    path('api-token-authentication',obtain_jwt_token),
-    path('api-token-refresh',refresh_jwt_token)
 ]

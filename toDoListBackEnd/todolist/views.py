@@ -8,6 +8,9 @@ import re as regex
 from toDoListBackEnd.todolist.forms import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework_jwt.settings import api_settings
+from rest_framework import permissions, status
+from django.contrib.auth import authenticate,login
 # Create your views here.
 
 """ Each view function checks if the request to the endpoint is a GET
@@ -19,6 +22,11 @@ from rest_framework.response import Response
         if its a post request then the view will perform some action
     
 """
+
+# Get the JWT settings, 
+jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
 
 @csrf_exempt
 @api_view(['POST'])
@@ -188,14 +196,30 @@ def create_account(request):
         #otherwise RETURN errors
 
 
-# Login
+@api_view(['POST'])# Login
 @csrf_exempt
-@api_view(['POST'])
-def login(request):
-    pass
+def login_user(request):
+    
+    if request.method == "POST":
+        # retrieve email and password params
+        email = request.data.get("email")
+        password = request.data.get("password")
+        if not email or not password:
+            return Response(data={"message": "Invalid username or password"},status = status.HTTP_401_UNAUTHORIZED)
+        else:
+            user = User.objects.get(email=email)
+            if password == user.password:
+                serializer = ToDoItemSerializer()
+                todolists = ToDoList.objects.filter(user_id=user.user_id)
+                serializer = ToDoListSerializer(todolists,many=True)
+                return Response(serializer.data)
+            return Response(data={"message":"Invalid username or passowrd"},status= status.HTTP_401_UNAUTHORIZED)
+    
+    # authenticate the user
+    
 
 #logout
 @csrf_exempt
-def logout(request):
+def logout_user(request):
     pass
     

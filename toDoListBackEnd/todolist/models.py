@@ -1,13 +1,15 @@
 from django.db import models
 from datetime import datetime as dt
+from django.contrib.auth.models import User as u
 
 # Create your models here.
+# the user model should inherit the built-in one
 class User(models.Model):
-    user_id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length = 50)
-    last_name = models.CharField(max_length = 50)
-    email = models.CharField(max_length = 50) 
-    password = models.CharField(max_length = 50) 
+    user_id = models.AutoField(primary_key=True) 
+    first_name = models.CharField(max_length = 50) # Included
+    last_name = models.CharField(max_length = 50) # Included
+    email = models.CharField(max_length = 50)  # Inclued
+    password = models.CharField(max_length = 50) # Included
     date_created = models.DateTimeField(default=dt.now)
 
 
