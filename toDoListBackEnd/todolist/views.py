@@ -209,14 +209,10 @@ def login_user(request):
         else:
             user = User.objects.get(email=email)
             if password == user.password:
-                serializer = ToDoItemSerializer()
-                todolists = ToDoList.objects.filter(user_id=user.user_id)
-                serializer = ToDoListSerializer(todolists,many=True)
-                return Response(serializer.data)
+                serializer = UserSerializer(user)
+                return Response(serializer.data,status=status.HTTP_202_ACCEPTED)
             return Response(data={"message":"Invalid username or passowrd"},status= status.HTTP_401_UNAUTHORIZED)
-    
-    # authenticate the user
-    
+        
 
 #logout
 @csrf_exempt

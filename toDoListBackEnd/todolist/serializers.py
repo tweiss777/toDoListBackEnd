@@ -1,15 +1,7 @@
 from rest_framework import serializers
 from toDoListBackEnd.todolist.models import  User, ToDoList, ToDoItem
 
-# Serializer for the JSON Web token
-# Token should be a string
-class TokenSerializer(serializers.Serializer):
-    token = serializers.CharField(max_length=255)
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['user_id','first_name','last_name','email','date_created']
 
 
 # Serializer for the todo items
@@ -36,3 +28,8 @@ class ToDoListSerializer(serializers.ModelSerializer):
         {item_name:'apples',
          date_created: dt.now()}
         ]}"""
+class UserSerializer(serializers.ModelSerializer):
+    todolists = ToDoListSerializer(many=True)
+    class Meta:
+        model = User
+        fields = ['user_id','first_name','last_name','email','date_created','todolists']
