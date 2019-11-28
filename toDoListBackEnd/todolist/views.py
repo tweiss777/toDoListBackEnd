@@ -30,6 +30,7 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 @csrf_exempt
 @api_view(['POST'])
+# Delete this method since we have the login function to handle retrieving lists
 def retrieveToDoLists(request):
     if request.method == 'POST':
         # user_id: user id associated

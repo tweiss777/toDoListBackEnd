@@ -3,7 +3,7 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from . import views
 
 urlpatterns = [
-    path('retrievelist',views.retrieveToDoItems),
+    path('retrievelistitems',views.retrieveToDoItems),
     path('create_list',views.create_list),
     path('create_list_item',views.create_list_item),
     path('update_list_item',views.update_list_item),
