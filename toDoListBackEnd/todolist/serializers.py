@@ -17,7 +17,7 @@ class ToDoListSerializer(serializers.ModelSerializer):
     list_items = ToDoItemSerializer(many=True) 
     class Meta:
         model = ToDoList
-        fields = ['list_name','user_id','list_items']
+        fields = ['list_name','list_id','user_id','list_items',]
 
 """{list_id:1,
     list_name:'shopping list',

@@ -71,7 +71,8 @@ def create_list(request):
     if request.method == 'POST':
         listName = request.data.get('list_name')
         userId = request.data.get('user_id')
-        new_list = ToDoList(list_name=listName,user_id=userId)
+        user = User.objects.get(user_id=userId)
+        new_list = ToDoList(list_name=listName,user_id=user)
         new_list.save()
         return Response({"message":"list created succesfully"})
 
@@ -216,6 +217,7 @@ def login_user(request):
         
 
 #logout
+# Delete this function soon¸S
 @csrf_exempt
 def logout_user(request):
     pass
