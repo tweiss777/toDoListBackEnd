@@ -140,10 +140,11 @@ def delete_list(request):
         # retrieve the list items in the form of a queryset
         list_items = ToDoItem.objects.filter(list_id=listID)
         listName = ToDoList.objects.get(list_name=listName,list_id=listID)
-        if len(list_items) > 0:
-            rowsDeleted = list_items.delete()
+        rowsToDelete = len(list_items)
+        if rowsToDelete > 0:
+            list_items.delete()
         listName.delete()
-        return Response({"message":"List deleted \n number of items removed from list %s" % rowsDeleted.count})
+        return Response({"message":"List deleted \n number of items removed from list %s" % rowsToDelete})
 # delete list item
 @csrf_exempt
 @api_view(['POST'])
